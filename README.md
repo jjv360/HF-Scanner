@@ -22,3 +22,9 @@ verify their license for entities bought through the Marketplace.
 - [ ] Scan and identify avatars
   - [ ] Show display name, username, etc
   - [ ] Action button to add as a friend
+
+---
+
+## Attributions
+
+- **Model:** [Blaster by RustardGaming](https://sketchfab.com/models/c329ef00eba7436a9432fb1b871e756b)
