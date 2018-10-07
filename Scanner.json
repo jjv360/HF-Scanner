@@ -1,0 +1,96 @@
+{
+    "DataVersion": 0,
+    "Entities": [
+        {
+            "clientOnly": false,
+            "created": "2018-09-15T10:58:43Z",
+            "dimensions": {
+                "blue": 0.009999999776482582,
+                "green": 0.10000000149011612,
+                "red": 0.14000000059604645,
+                "x": 0.14000000059604645,
+                "y": 0.10000000149011612,
+                "z": 0.009999999776482582
+            },
+            "dpi": 80,
+            "id": "{9a0ddee6-7658-4743-8c47-2d8e87dac275}",
+            "lastEdited": 1537016355993673,
+            "lastEditedBy": "{f029129a-b996-4f9a-8ea7-612ebacfcaba}",
+            "name": "Scanner Gun - Display",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "parentID": "{863c9f7e-70c2-4eb3-ab63-d388b99871ec}",
+            "position": {
+                "blue": -0.0011461824178695679,
+                "green": 0.1513671875,
+                "red": 0.00168609619140625,
+                "x": 0.00168609619140625,
+                "y": 0.1513671875,
+                "z": -0.0011461824178695679
+            },
+            "queryAACube": {
+                "scale": 0.1723368912935257,
+                "x": -6.637556076049805,
+                "y": -4000.12890625,
+                "z": 44.341590881347656
+            },
+            "rotation": {
+                "w": -4.57763671875e-05,
+                "x": -1.52587890625e-05,
+                "y": 1,
+                "z": 1.52587890625e-05
+            },
+            "sourceUrl": "http://mpassets.highfidelity.com/ff287849-5c74-4c89-9108-e7af7b244e06-v1/scanner-ui.html#%7B%22state%22%3A%22idle%22%7D",
+            "type": "Web",
+            "userData": "{\"grabbableKey\":{\"grabbable\":false}}",
+            "serverScripts": "http://mpassets.highfidelity.com/ff287849-5c74-4c89-9108-e7af7b244e06-v1/screen-server.js"
+        },
+        {
+            "clientOnly": false,
+            "collisionsWillMove": true,
+            "created": "2018-09-15T10:58:43Z",
+            "description": "Scans things to see details about them.",
+            "dimensions": {
+                "blue": 0.21728938817977905,
+                "green": 0.242000013589859,
+                "red": 0.07803338766098022,
+                "x": 0.07803338766098022,
+                "y": 0.242000013589859,
+                "z": 0.21728938817977905
+            },
+            "dynamic": true,
+            "gravity": {
+                "blue": 0,
+                "green": -9.800000190734863,
+                "red": 0,
+                "x": 0,
+                "y": -9.800000190734863,
+                "z": 0
+            },
+            "id": "{863c9f7e-70c2-4eb3-ab63-d388b99871ec}",
+            "lastEdited": 1537016355993373,
+            "lastEditedBy": "{f029129a-b996-4f9a-8ea7-612ebacfcaba}",
+            "modelURL": "http://mpassets.highfidelity.com/ff287849-5c74-4c89-9108-e7af7b244e06-v1/scanner.fbx",
+            "name": "Scanner Gun",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "queryAACube": {
+                "scale": 0.3344665765762329,
+                "x": -0.16723328828811646,
+                "y": -0.16723328828811646,
+                "z": -0.16723328828811646
+            },
+            "rotation": {
+                "w": 0.9807126522064209,
+                "x": -0.0001678466796875,
+                "y": -0.19542229175567627,
+                "z": 1.52587890625e-05
+            },
+            "script": "http://mpassets.highfidelity.com/ff287849-5c74-4c89-9108-e7af7b244e06-v1/gun-client.js",
+            "scriptTimestamp": 1537014692950,
+            "shapeType": "simple-hull",
+            "type": "Model",
+            "userData": "{\"grabbableKey\":{\"grabbable\":true},\"wearable\":{\"joints\":{\"LeftHand\":[{\"x\":-0.01,\"y\":0.15,\"z\":0.02},{\"x\":-0.5,\"y\":0.5,\"z\":0.5,\"w\":0.5}],\"RightHand\":[{\"x\":0.04,\"y\":0.15,\"z\":0.01},{\"x\":-0.5,\"y\":-0.5,\"z\":-0.5,\"w\":0.5}]}}}"
+        }
+    ],
+    "Id": "{2036ff3e-0287-4433-aac1-3d9f7f9a92b0}",
+    "Version": 92
+}

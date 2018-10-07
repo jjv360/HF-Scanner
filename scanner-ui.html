@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scanner Gun UI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
+<body>
+
+    <!-- Styles -->
+    <style>
+
+        :root {
+            --main-color: #ff8300;
+        }
+
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        div {
+            font-family: Helvetica, Verdana, Arial;
+            color: var(--main-color);
+        }
+
+        /** Apply to a CSS tag to fill it with the main color */
+        .svg-fill {
+            fill: var(--main-color);
+        }
+
+        /** Applies a slight background slide to the background image */
+        .anim-bgslide {
+            background-position: 0px 0px;
+            animation: 1s linear infinite bgslide;
+        }
+        @keyframes bgslide {
+            from { background-position: 0px 0px; }
+            to   { background-position: 0px 5px; }
+        }
+
+        /** Slides the view over the document, every few seconds */
+        .anim-slideover {
+            top: -100%;
+            animation: 10s linear infinite slideover;
+        }
+        @keyframes slideover {
+            from { top: -100%; }
+            to   { top: 300%; }
+        }
+
+        /** The main state containers */
+        div.container {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+        div.container.visible {
+            display: block;
+        }
+
+        /* Checking loader */
+        .lds-ripple {
+          display: inline-block;
+          position: relative;
+          width: 256px;
+          height: 256px;
+        }
+        .lds-ripple div {
+          position: absolute;
+          border: 8px solid var(--main-color);
+          opacity: 1;
+          border-radius: 50%;
+          animation: lds-ripple 4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+        }
+        .lds-ripple div:nth-child(2) {
+          animation-delay: -2s;
+        }
+        @keyframes lds-ripple {
+          0% {
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            opacity: 1;
+          }
+          100% {
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+          }
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            margin: 4px 4px;
+            font-size: 12px;
+            font-weight: bold;
+            opacity: 0.1;
+            height: 16px;
+        }
+        .tag:first-child {
+            margin-left: 12px;
+        }
+
+        .tag.on {
+            opacity: 1;
+        }
+
+    </style>
+
+    <!-- Error state -->
+    <div id='error' class='container'>
+        <div style='position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; flex-direction: column; '>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve" width="64px" height="64px">
+            <g>
+            	<g>
+            		<path class='svg-fill' d="M507.494,426.066L282.864,53.537c-5.677-9.415-15.87-15.172-26.865-15.172c-10.995,0-21.188,5.756-26.865,15.172    L4.506,426.066c-5.842,9.689-6.015,21.774-0.451,31.625c5.564,9.852,16.001,15.944,27.315,15.944h449.259    c11.314,0,21.751-6.093,27.315-15.944C513.508,447.839,513.336,435.755,507.494,426.066z M256.167,167.227    c12.901,0,23.817,7.278,23.817,20.178c0,39.363-4.631,95.929-4.631,135.292c0,10.255-11.247,14.554-19.186,14.554    c-10.584,0-19.516-4.3-19.516-14.554c0-39.363-4.63-95.929-4.63-135.292C232.021,174.505,242.605,167.227,256.167,167.227z     M256.498,411.018c-14.554,0-25.471-11.908-25.471-25.47c0-13.893,10.916-25.47,25.471-25.47c13.562,0,25.14,11.577,25.14,25.47    C281.638,399.11,270.06,411.018,256.498,411.018z"/>
+            	</g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
+            </svg>
+            <div style='font-size: 21px; font-style: italic; font-weight: bold; padding-top: 20px; padding-bottom: 5px; '>Device malfunction</div>
+            <div id='text' style='font-size: 15px; font-style: italic; '>Error!</div>
+        </div>
+    </div>
+
+    <!-- Idle state -->
+    <div id='idle' class='container'>
+        <div style='position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 21px; font-style: italic; '>
+            Ready
+        </div>
+    </div>
+
+    <!-- Checking state -->
+    <div id='checking' class='container'>
+        <div style='position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 21px; font-style: italic; '>
+            <div class="lds-ripple"><div></div><div></div></div>
+        </div>
+    </div>
+
+    <!-- Entity state -->
+    <div id='entity' class='container'>
+
+        <!-- Icon and title -->
+        <div style='display: flex; align-items: center; '>
+            <div id='entity-icon' style='width: 88px; height: 88px; background-size: 44px 44px; background-position: center; background-repeat: no-repeat; flex: 0 0 auto; '></div>
+            <div>
+                <div id='entity-name' style='padding-bottom: 5px; font-size: 21px; font-style: italic; font-weight: bold; '></div>
+                <div id='entity-type' style='padding-bottom: 5px; font-size: 12px; font-style: italic; '></div>
+            </div>
+        </div>
+
+        <!-- Tags -->
+        <div style='padding: 0px 10px; '>
+            <img id='entity-tag-locked' class='tag' src='locked.svg' />
+            <img id='entity-tag-script' class='tag' src='script.svg' />
+            <img id='entity-tag-cloneable' class='tag' src='cloned.svg' />
+            <img id='entity-tag-dynamic' class='tag' src='dynamic.svg' />
+            <img id='entity-tag-collisionless' class='tag' src='collisionless.svg' />
+            <img id='entity-tag-grabbable' class='tag' src='grabbable.svg' />
+            <img id='entity-tag-wearable' class='tag' src='wearable.svg' />
+        </div>
+
+        <!-- Shop info -->
+        <div id='entity-marketinfo-container' style='display: flex; align-items: top; '>
+            <div style='width: 64px; height: 44px; background-size: 24px 24px; background-position: center; background-repeat: no-repeat; background-image: url(shop.svg); flex: 0 0 auto; '></div>
+            <div id='entity-marketinfo' style='padding: 14px 10px 4px 0px; font-size: 13px; font-style: italic; '></div>
+        </div>
+
+        <!-- Description -->
+        <div style='display: flex; align-items: top; '>
+            <div style='width: 64px; height: 44px; background-size: 24px 24px; background-position: center; background-repeat: no-repeat; background-image: url(note.svg); flex: 0 0 auto; '></div>
+            <div id='entity-description' style='padding: 14px 10px 4px 0px; font-size: 13px; font-style: italic; '></div>
+        </div>
+
+    </div>
+
+    <!-- Background effects -->
+    <div style='position: absolute; top: 0px; left: 0px; width: calc(100% - 4px); height: calc(100% - 4px); border: 2px solid var(--main-color); '></div>
+    <div style='position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; background-image: repeating-linear-gradient(to bottom, #000 0px, var(--main-color) 5px); opacity: 0.2; ' class='anim-bgslide'></div>
+    <div style='position: absolute; top: -100%; left: 0px; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, var(--main-color) 100%); opacity: 0.25; ' class='anim-slideover'></div>
+    <div style='position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.25) 100%); '></div>
+
+    <!-- App code -->
+    <script>
+
+        /** Called when the hash changes */
+        function onHashChange() {
+
+            // Hide old state containers
+            let containers = document.querySelectorAll(".container")
+            for (let i = 0 ; i < containers.length ; i++)
+                containers[i].className = "container"
+
+            // Catch errors
+            try {
+
+                // Decode hash
+                let payload = JSON.parse(decodeURIComponent(window.location.hash.substring(1)))
+
+                // Check state
+                if (payload.state == "idle") {
+
+                    // User has not scanned anything yet
+                    document.querySelector("#idle").className = "visible container"
+
+                } else if (payload.state == "checking") {
+
+                    // User is in the process of scanning
+                    document.querySelector("#checking").className = "visible container"
+
+                } else if (payload.state == "error") {
+
+                    // Throw the error
+                    throw new Error(payload.error || "Unknown failure")
+
+                } else if (payload.state == "entity") {
+
+                    // User has scanned an entity. Get icon URL
+                    var icon = payload.icon
+                    if (!icon)
+                        icon = "entity.svg"
+
+                    document.querySelector("#entity").className = "visible container"
+                    document.querySelector("#entity-icon").style.backgroundImage = "url(" + icon + ")"
+                    document.querySelector("#entity-name").innerText = payload.name || "No name"
+                    document.querySelector("#entity-type").innerText = payload.type
+                    document.querySelector("#entity-description").innerText = payload.description || "(no description)"
+
+                    // Set tags
+                    document.querySelector("#entity-tag-locked").className = payload.locked ? "tag on" : "tag off"
+                    document.querySelector("#entity-tag-script").className = payload.hasScript ? "tag on" : "tag off"
+                    document.querySelector("#entity-tag-cloneable").className = payload.cloneable ? "tag on" : "tag off"
+                    document.querySelector("#entity-tag-dynamic").className = payload.dynamic ? "tag on" : "tag off"
+                    document.querySelector("#entity-tag-collisionless").className = payload.collisionless ? "tag on" : "tag off"
+                    document.querySelector("#entity-tag-grabbable").className = payload.grabbable ? "tag on" : "tag off"
+                    document.querySelector("#entity-tag-wearable").className = payload.wearable ? "tag on" : "tag off"
+
+                    // Set marketplace info
+                    document.querySelector("#entity-marketinfo-container").style.display = payload.marketItem.id ? "flex" : "none"
+                    document.querySelector("#entity-marketinfo").innerHTML = "Created by <b>" + (payload.marketItem.artist || "Unknown") + "</b> "
+                        + (payload.marketItem.limitedRun < 1000000000 ? ("(" + payload.marketItem.editionNumber + " of " + payload.marketItem.limitedRun + ")") : "")
+
+                } else {
+
+                    // Unknown state!
+                    throw new Error("Unknown state in hash")
+
+                }
+
+            } catch (err) {
+
+                // Show error
+                document.querySelector("#error").className = "visible container"
+                document.querySelector("#error #text").innerText = err.message
+
+            }
+
+        }
+
+        // Add listener for hash change events
+        window.addEventListener("hashchange", onHashChange)
+        onHashChange()
+
+    </script>
+
+</body>
+</html>
