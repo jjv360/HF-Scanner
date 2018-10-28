@@ -1,6 +1,6 @@
 # High Fidelity: Scanner
 
-![Preview](/Market Logo.png)
+![Preview](Market%20Logo.png)
 
 This scanner tool for [High Fidelity](https://highfidelity.com) can be used to see details about entities, and to
 verify their license for entities bought through the Marketplace.
