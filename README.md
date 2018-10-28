@@ -17,7 +17,7 @@ verify their license for entities bought through the Marketplace.
 - [x] Scan and identify entities
   - [x] Display name and description
   - [x] Display flags, like dynamic, has script, collisionless, etc
-  - [ ] Display temporary entity flag
+  - [x] Display temporary entity flag
   - [x] Display marketplace info, such as creator and limitedness
   - [x] Verify PoP license
 - [ ] Scan and identify avatars

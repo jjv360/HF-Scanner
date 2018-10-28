@@ -310,7 +310,7 @@ Gun.prototype.identifyContinue = function(entityID) {
         name: props.name || props.itemName || modelName,
         owner: props.clientOnly ? props.owningAvatarID : null,
         age: parseFloat(props.age) * 1000,
-        lifetime: parseFloat(props.lifetime) * 1000,
+        lifetime: parseFloat(props.lifetime || 0) * 1000,
         locked: props.locked,
         href: props.href,
         description: props.description || props.itemDescription,
