@@ -297,6 +297,11 @@ Gun.prototype.identifyContinue = function(entityID) {
     idx = modelName.indexOf("?")
     if (idx != -1) modelName = modelName.substr(0, idx)
 
+    // Get entity marketplace info
+    var marketplaceInfo = Entities.getStaticCertificateJSON(entityID)
+    if (marketplaceInfo && typeof marketplaceInfo == 'string')
+        marketplaceInfo = JSON.parse(marketplaceInfo)
+
     // Display standard entity info
     this.setState({
         state: "entity",
@@ -322,12 +327,7 @@ Gun.prototype.identifyContinue = function(entityID) {
             hasTransparent: props.renderInfo.hasTransparent,
             drawCalls: props.renderInfo.drawCalls
         },
-        marketItem: {
-            id: props.marketplaceID,
-            artist: props.itemArtist,
-            limitedRun: props.limitedRun,
-            editionNumber: props.editionNumber
-        }
+        marketItem: marketplaceInfo
     })
 
 }

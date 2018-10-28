@@ -263,9 +263,10 @@
                     document.querySelector("#entity-tag-wearable").className = payload.wearable ? "tag on" : "tag off"
 
                     // Set marketplace info
-                    document.querySelector("#entity-marketinfo-container").style.display = payload.marketItem.id ? "flex" : "none"
-                    document.querySelector("#entity-marketinfo").innerHTML = "Created by <b>" + (payload.marketItem.artist || "Unknown") + "</b> "
-                        + (payload.marketItem.limitedRun < 1000000000 ? ("(" + payload.marketItem.editionNumber + " of " + payload.marketItem.limitedRun + ")") : "")
+                    var market = payload.marketItem || {}
+                    document.querySelector("#entity-marketinfo-container").style.display = market.marketplaceID ? "flex" : "none"
+                    document.querySelector("#entity-marketinfo").innerHTML = "Created by <b>" + (market.itemArtist || "Unknown") + "</b> "
+                        + "(" + market.editionNumber + " of " + (market.limitedRun > 0 ? market.limitedRun : "unlimited") + ")"
 
                 } else {
 
