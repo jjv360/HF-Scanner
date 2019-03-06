@@ -1,3 +1,5 @@
+![](https://img.shields.io/badge/status-ready-brightgreen.svg)
+
 # High Fidelity: Scanner
 
 ![Preview](Market%20Logo.png)
